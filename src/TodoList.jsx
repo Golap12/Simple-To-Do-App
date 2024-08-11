@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useCallback, memo } from 'react';
 
 const todoReducer = (state, action) => {
   switch (action.type) {
@@ -19,31 +19,32 @@ const initialTodos = [
   { id: 1, text: 'My Name Is Nurulla Hasan' },
 ];
 
-function TodoList() {
+const TodoList = memo(() => {
+
   const [todos, dispatch] = useReducer(todoReducer, initialTodos);
   const [newTodo, setNewTodo] = useState('');
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [editingText, setEditingText] = useState('');
 
-  const handleAddTodo = () => {
+  const handleAddTodo = useCallback(() => {
     dispatch({ type: 'ADD_TODO', payload: { id: Date.now(), text: newTodo } });
     setNewTodo('');
-  };
+  }, [newTodo]);
 
-  const handleEditTodo = (id, text) => {
+  const handleEditTodo = useCallback((id, text) => {
     setEditingTodoId(id);
     setEditingText(text);
-  };
+  }, []);
 
-  const handleUpdateTodo = (id) => {
+  const handleUpdateTodo = useCallback((id) => {
     dispatch({ type: 'UPDATE_TODO', payload: { id, text: editingText } });
     setEditingTodoId(null);
     setEditingText('');
-  };
+  }, [editingText]);
 
-  const handleDeleteTodo = (id) => {
+  const handleDeleteTodo = useCallback((id) => {
     dispatch({ type: 'DELETE_TODO', payload: { id } });
-  };
+  }, []);
 
   return (
     <div className="max-w-md mx-auto p-6 mt-10 bg-white border rounded-sm shadow-md">
@@ -103,6 +104,6 @@ function TodoList() {
       </ul>
     </div>
   );
-}
+});
 
 export default TodoList;
