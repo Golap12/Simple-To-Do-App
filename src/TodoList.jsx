@@ -47,7 +47,7 @@ const TodoList = memo(() => {
   }, []);
 
   return (
-    <div className="max-w-md mx-auto p-6 mt-10 bg-white border rounded-sm shadow-md">
+    <div className="max-w-lg mx-auto p-6 mt-10 bg-white border rounded-sm shadow-md">
       <h2 className="text-2xl font-bold text-center mb-4">To-Do List</h2>
       <div className="flex mb-4">
         <input
@@ -68,18 +68,18 @@ const TodoList = memo(() => {
         {todos.map((todo) => (
           <li
             key={todo.id}
-            className="flex justify-between items-center mb-2 p-2 bg-gray-100 rounded-sm space-x-2">
+            className="flex justify-between items-center mb-2 p-2 bg-gray-100 rounded-sm">
             {editingTodoId === todo.id ? (
               <input
                 type="text"
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
-                className="flex-grow p-2 border rounded-sm focus:outline-none"
+                className="flex-grow p-2 border rounded-sm focus:outline-none mr-2"
               />
             ) : (
-              <span>{todo.text}</span>
+              <span className='overflow-auto mr-2'>{todo.text}</span>
             )}
-            <div className="space-x-2">
+            <div className="space-x-2 flex">
               {editingTodoId === todo.id ? (
                 <button
                   onClick={() => handleUpdateTodo(todo.id)}
