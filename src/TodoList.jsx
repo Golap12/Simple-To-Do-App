@@ -84,7 +84,7 @@ const TodoList = memo(() => {
                 <button
                   onClick={() => handleUpdateTodo(todo.id)}
                   className="bg-green-500 text-white p-1 rounded-sm hover:bg-green-600">
-                  Update
+                  Save
                 </button>
               ) : (
                 <button
